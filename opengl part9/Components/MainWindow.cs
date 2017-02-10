@@ -60,10 +60,10 @@ namespace techdump.opengl.Components
             _texturedProgram.AddShader(ShaderType.FragmentShader, @"Components\Shaders\5Frag\simplePipeTexFrag.c");
             _texturedProgram.Link();
 
-            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f), _texturedProgram.Id, @"Components\Textures\dotted2.png"));
-            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f), _texturedProgram.Id, @"Components\Textures\wooden.png"));
+            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f, 256, 256), _texturedProgram.Id, @"Components\Textures\dotted2.png"));
+            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f, 256, 256), _texturedProgram.Id, @"Components\Textures\wooden.png"));
             _renderObjects.Add(new ColoredRenderObject(ObjectFactory.CreateSolidCube(0.2f, Color4.HotPink), _solidProgram.Id));
-            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f), _texturedProgram.Id, @"Components\Textures\dotted.png"));
+            _renderObjects.Add(new TexturedRenderObject(ObjectFactory.CreateTexturedCube(0.2f, 256, 256), _texturedProgram.Id, @"Components\Textures\dotted.png"));
 
             CursorVisible = true;
 
