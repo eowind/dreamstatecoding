@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F7BCAE0D-8B12-429A-8760-86FD82703326}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>knowledge</RootNamespace>
+    <AssemblyName>knowledge</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IKnowledgeProvider.cs" />
+    <Compile Include="KnowledgeStore.cs" />
+    <Compile Include="Model\BaseKnowledge.cs" />
+    <Compile Include="Model\Contexts\Context.cs" />
+    <Compile Include="Model\Contexts\FrameFactory.cs" />
+    <Compile Include="Model\Expressions\AExpression.cs" />
+    <Compile Include="Model\Expressions\EvaluationResult.cs" />
+    <Compile Include="Model\Expressions\ExpressionAnd.cs" />
+    <Compile Include="Model\Expressions\ExpressionIs.cs" />
+    <Compile Include="Model\Expressions\ExpressionLeaf.cs" />
+    <Compile Include="Model\Expressions\ExpressionNot.cs" />
+    <Compile Include="Model\Expressions\ExpressionOr.cs" />
+    <Compile Include="Model\Expressions\ExpressionXor.cs" />
+    <Compile Include="Model\Relative\IRelative.cs" />
+    <Compile Include="Model\Expressions\KnowledgeNon.cs" />
+    <Compile Include="Model\Relative\RelativeAll.cs" />
+    <Compile Include="Model\Relative\RelativeBefore.cs" />
+    <Compile Include="Model\KnowledgeAttribute.cs" />
+    <Compile Include="Model\KnowledgeImplication.cs" />
+    <Compile Include="Model\KnowledgeModel.cs" />
+    <Compile Include="Model\KnowledgeRelation.cs" />
+    <Compile Include="Model\KnowledgeSource.cs" />
+    <Compile Include="Model\KnowledgeType.cs" />
+    <Compile Include="Model\Objects\BaseObject.cs" />
+    <Compile Include="Model\Objects\Car.cs" />
+    <Compile Include="Model\Objects\Connection.cs" />
+    <Compile Include="Model\Objects\ObjectCollection.cs" />
+    <Compile Include="Model\Objects\ObjectFile.cs" />
+    <Compile Include="Model\Objects\Person.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
