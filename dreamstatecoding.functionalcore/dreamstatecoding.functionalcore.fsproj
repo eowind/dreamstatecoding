@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="eventsourcing\Model.fs" />
+    <Compile Include="eventsourcing\Actions.fs" />
+    <Compile Include="eventsourcing\Stores\UserStore.fs" />
+    <Compile Include="eventsourcing\ApplicationState.fs" />
+    <Compile Include="eventsourcing\AppPersister.fs" />
+    <Compile Include="eventsourcing\AppHolder.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Interop.Dynamic" Version="4.0.3.130" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>
