@@ -10,6 +10,14 @@ module AppPersister =
  
     
     let private store = @".\store\"
+    let converters =
+        [ Fable.JsonConverter () :> JsonConverter ] |> List.toArray :> IList<JsonConverter>
+
+    let settings =
+        JsonSerializerSettings (
+            Converters = converters,
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore)
 
     
     let private createSnapshotFilename (nextActionId:Guid) =
@@ -24,7 +32,7 @@ module AppPersister =
     
     let private writeSnapshotToDisk  (state:obj) (nextActionId:Guid) =
         let fullFilename = createSnapshotFilename nextActionId
-        let json = JsonConvert.SerializeObject(state)
+        let json = JsonConvert.SerializeObject(state, settings)
         File.WriteAllText(fullFilename,  json)
         ()
 
@@ -56,7 +64,7 @@ module AppPersister =
 
     let PersistAction (action:obj) (actionId:Guid) =
         let fullFilename = createActionFilename action actionId
-        let json = JsonConvert.SerializeObject(action)
+        let json = JsonConvert.SerializeObject(action, settings)
         File.WriteAllText(fullFilename,  json)
         ()
 
@@ -70,7 +78,7 @@ module AppPersister =
         let actionName = split.[1]
         let actionNameWithNamespace = "dreamstatecoding.functionalcore.Actions+" + actionName
         let t = Assembly.GetExecutingAssembly().GetType(actionNameWithNamespace)
-        (JsonConvert.DeserializeObject(json, t), Guid.Parse(split.[2]))
+        (JsonConvert.DeserializeObject(json, t, settings), Guid.Parse(split.[2]))
 
     let GetAllActions () =
         let di = new DirectoryInfo(store)
@@ -101,7 +109,7 @@ module AppPersister =
     let private getSnapshot (fi:FileInfo) =
         let split = fi.Name.Split('.')
         let json = File.ReadAllText(fi.FullName)
-        (JsonConvert.DeserializeObject<ApplicationState.AppliationState>(json), Guid.Parse(split.[1]))
+        (JsonConvert.DeserializeObject<ApplicationState.AppliationState>(json, settings), Guid.Parse(split.[1]))
 
     let GetLatestSnapshotAndActions () =
         let di = new DirectoryInfo(Path.Combine(store, "snapshots"))

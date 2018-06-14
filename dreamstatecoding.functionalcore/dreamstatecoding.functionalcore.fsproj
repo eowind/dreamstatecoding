@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fable.JsonConverter" Version="1.0.8" />
     <PackageReference Include="FSharp.Interop.Dynamic" Version="4.0.3.130" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
