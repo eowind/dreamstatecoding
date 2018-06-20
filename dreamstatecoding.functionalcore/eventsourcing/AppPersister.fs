@@ -109,7 +109,7 @@ module AppPersister =
     let private getSnapshot (fi:FileInfo) =
         let split = fi.Name.Split('.')
         let json = File.ReadAllText(fi.FullName)
-        (JsonConvert.DeserializeObject<ApplicationState.AppliationState>(json, settings), Guid.Parse(split.[1]))
+        (JsonConvert.DeserializeObject<ApplicationState.AppliationState>(json, settings ), Guid.Parse(split.[1]))
 
     let GetLatestSnapshotAndActions () =
         let di = new DirectoryInfo(Path.Combine(store, "snapshots"))

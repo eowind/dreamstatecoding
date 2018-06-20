@@ -7,12 +7,17 @@ module AppHolder  =
 
     let mutable private state = AppliationState.Default
     let mutable private counter : int = 0
+    let mutable private hasReplayed : bool = false;
+    let mutable private replayCompleted : bool = false;
     let GetCurrentState() =  state
     let GetProcessedActionsCounter() = counter
+    let IsFirstTimeUse() = not hasReplayed
+    let IsReplayCompleted() = replayCompleted
 
     type Message =
         | Snapshot of AppliationState
         | Replay of obj
+        | ReplayCompleted
         | Action of obj
 
     let private Processor = MailboxProcessor.Start(fun inbox ->
@@ -24,6 +29,9 @@ module AppHolder  =
                     match message with
                     | Snapshot snapshot -> snapshot
                     | Replay a -> s.HandleAction a
+                    | ReplayCompleted ->
+                        replayCompleted <- true
+                        s
                     | Action a -> 
                         AppPersister.Persist a s c'
                         s.HandleAction a
@@ -38,6 +46,7 @@ module AppHolder  =
              
              
     let private HandleReplayAction (action:obj, id:Guid) =
+        hasReplayed <- true
         Processor.Post (Replay action)
 
     let InitiateFromLastSnapshot () =
@@ -45,11 +54,12 @@ module AppHolder  =
         match snapshot with
         | Some x -> Processor.Post (Snapshot x)
         | _ -> ()
-        Array.map (fun x -> (HandleReplayAction x)) actions
+        Array.map (fun x -> (HandleReplayAction x)) actions |> ignore
+        if hasReplayed then Processor.Post ReplayCompleted
         
     let InitiateFromActionsOnly () =
         AppPersister.GetAllActions()
         |> Array.map (fun x -> (HandleReplayAction x))
         |> ignore
-        ()
+        if hasReplayed then Processor.Post ReplayCompleted
 

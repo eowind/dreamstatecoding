@@ -10,10 +10,21 @@ module UserStore =
             Users: Map<UserId, User>
         }
         member this.AddUser (action:AddUser)=
-            { this with Users = this.Users.Add(action.User.Id, action.User); }
+            let user = 
+                {
+                    Id = action.UserId
+                    Name = action.Name
+                    Email = action.Name
+                }
+            { this with Users = this.Users.Add(user.Id, user); }
 
         member this.ModifyUser (action:ModifyUser)=
-            { this with Users = this.Users.Add(action.User.Id, action.User); }
+            let o = this.Users.TryFind action.UserId
+            match o with
+            | None -> this
+            | Some original ->
+                let updated = { original with Name = action.Name; Email = action.Email }
+                { this with Users = this.Users.Add(updated.Id, updated); }
             
         member this.HandleAction (action:obj) =
             match action with
